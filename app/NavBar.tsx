@@ -1,7 +1,14 @@
+'use client';
+import classNames from 'classnames';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { SiPivotaltracker} from 'react-icons/si'
 
 const NavBar = () => {
+
+  // get current route
+  const currentRoute = usePathname();
+  console.log(currentRoute);
 
   // define the nav_links array
   const navLinks =[
@@ -21,7 +28,11 @@ const NavBar = () => {
       <ul className='flex space-x-6'>
         {
           navLinks.map((link) =>(
-            <Link key={link.url} href={link.url} className='text-zinc-500 hover:text-zinc-800 transition-colors'>{link.label}</Link>
+            <Link key={link.url} href={link.url} className={classNames({
+            'text-zinc-900' :  link.url === currentRoute,
+            'text-zinc-500':  link.url !== currentRoute,
+            'text-zinc-500 hover:text-zinc-800 transition-colors': true
+            })}>{link.label}</Link>
           ))
         }
       </ul>
